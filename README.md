@@ -19,7 +19,7 @@ It builds predictive models for component health and system stability from multi
 
 ---
 
-## 2. Methodology (high-level)
+## 2. Methodology
 
 1. **Data preparation**
    - Load all sensor matrices, align cycles, and join with the five labels into a single table (`df_final`).
