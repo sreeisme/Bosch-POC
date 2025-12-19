@@ -1,10 +1,3 @@
-I apologize for that error. You are right; listing it twice was redundant and confusing.
-
-Here is the corrected **README.md**. I have strictly followed the layout of your **Data Lineage** reference, ensuring the **Success Criteria** appears **only once** (in the high-level summary position) and mapping the **Bosch Project** code details into the specific sections.
-
----
-
-```markdown
 # Generalisation of Dynamic Predictive Modelling
 
 A production-ready enterprise R&D framework for generalizing quality prediction models across manufacturing lines. This system provides end-to-end signal processing, latent regime discovery, and domain adaptation strategies to deploy predictive maintenance tools to new product categories with minimal retraining.
@@ -70,6 +63,3 @@ This platform **exceeds** all specified deliverables for the **Bosch "Generalisa
 ```
 
 ---
-
-
-
