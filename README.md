@@ -31,6 +31,132 @@ A production-ready enterprise R&D framework for generalizing quality prediction 
 
 ---
 
+## ⚡ Quick Start
+
+### Prerequisites
+
+* Python 3.10+
+* Virtual environment (recommended)
+
+### Installation
+
+Clone or download this repository.
+Set up the environment:
+```bash
+cd Production_Line_Modelling
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Running the Analysis
+
+Execute the Jupyter Notebook to generate the full analysis and models:
+```bash
+# Launch the main R&D notebook
+jupyter notebook Bosch_POC.ipynb
+```
+
+### Generate Lineage Visualization
+
+**Option 1: Latent Space Projection (Recommended)**
+The notebook automatically generates UMAP visualizations:
+
+* **Input:** 400+ engineered features.
+* **Output:** 2D scatter plot showing "Good" vs "Drifted" batches.
+
+**Option 2: Feature Importance Heatmap**
+Generates correlation matrices to visualize sensor-target relationships:
+
+* **Output:** Heatmap highlighting top 40 critical features for stability prediction.
+
+---
+
+## 📂 Repository Structure
+```text
+Production_Line_Modelling/
+├── data/
+│   ├── raw/                    # Input UCI Hydraulic Dataset (PS1.txt, etc.)
+│   └── processed/              # Extracted feature matrices
+├── Bosch_POC.ipynb             # Main R&D Notebook (The "Long IPYNB")
+├── README.md                   # Project Documentation
+└── requirements.txt            # Python Dependencies
+```
+
+---
+
+## 🔄 Pipeline Overview
+
+### Signal Processing Pipeline
+
+* **Purpose:** Transform raw high-frequency sensor data into usable features.
+* **Inputs:** Raw sensor matrices (e.g., `PS1` @ 100Hz).
+* **Outputs:** `X_features` matrix.
+* **Key Transformations:**
+  * Exponential Moving Average (EMA) smoothing to reduce noise.
+  * FFT for Spectral Energy and Peak Frequency extraction.
+  * Statistical moments (Skewness, Kurtosis, Crest Factor).
+
+### Domain Adaptation Pipeline
+
+* **Purpose:** Adapt models to new product categories (Cat2).
+* **Inputs:** Source Domain (Cat1) data, Target Domain (Cat2) data.
+* **Outputs:** Fine-tuned XGBoost/Neural Network models.
+* **Key Transformations:**
+  * Simulated domain shift injection (Sensor Drift).
+  * Feature freezing and Head-only retraining.
+  * Zero-shot performance evaluation.
+
+---
+
+## 📝 Data Dictionary
+
+See the notebook documentation for comprehensive definitions including:
+
+* **PS1 - PS6:** Hydraulic Pressure (bar) @ 100Hz.
+* **FS1 - FS2:** Volume Flow (L/min) @ 10Hz.
+* **TS1 - TS4:** Temperature (°C) @ 1Hz.
+* **Cooler_Condition:** 3% - 100% efficiency target (Regression).
+* **Stable_Flag:** 0 (Stable) or 1 (Unstable) classification target.
+* **Drift_Score:** Euclidean distance from the "Good Batch" cluster centroid.
+
+---
+
+## 💻 Adding New Models
+
+To instrument a new model architecture within the pipeline:
+
+1. **Define the Model:** Create a new class/function (e.g., `train_transformer`) in the modelling section.
+2. **Prepare Data:** Use `build_sequence_tensor` for deep learning or `X_features` for trees.
+3. **Run Evaluation:** Pass the model to the `eval_regression` or `eval_clf` utility functions.
+4. **Log Results:** Append metrics to the `results_df` dataframe for comparison.
+
+See `Bosch_POC.ipynb` for detailed examples and best practices.
+
+---
+
+## 💻 Technical Implementation
+
+* **Language:** Python 3.10+
+* **Dependencies:** `pandas`, `numpy`, `scipy`, `scikit-learn`, `xgboost`, `tensorflow`.
+* **Data Formats:** Text/CSV (data), JSON (metrics).
+* **Visualization:** `matplotlib`, `seaborn`, `umap-learn`.
+* **Privacy:** Non-personal industrial sensor data utilized.
+
+---
+
+## 🔮 Next Steps
+
+Potential enhancements for production deployment:
+
+* **Real-time Streaming:** Wrap feature extraction in a FastAPI endpoint.
+* **Drift Alerting:** Set automated thresholds on UMAP distance metrics.
+* **Federated Learning:** Adapt fine-tuning for multi-site deployment.
+* **Hardware Integration:** Connect to PLC for live data ingestion.
+* **Dashboarding:** Build a Streamlit frontend for operator usage.
+
+---
+
 ## ✅ Success Criteria Achieved
 
 This platform **exceeds** all specified deliverables for the **Bosch "Generalisation of Dynamic Predictive Modelling"** initiative and demonstrates enterprise-grade capabilities:
@@ -60,6 +186,9 @@ This platform **exceeds** all specified deliverables for the **Bosch "Generalisa
 * **Processing Efficiency:** Feature extraction pipeline processes 2000+ cycles with <1ms latency per cycle.
 * **Cluster Validity:** High Silhouette Score (0.52) indicating distinct, separable operating regimes.
 * **Enterprise Readiness:** 75% production-ready with clear scaling roadmap.
-```
 
 ---
+
+## 📄 License
+
+This is a proof of concept developed for educational and demonstration purposes.
