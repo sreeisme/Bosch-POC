@@ -1,6 +1,6 @@
 # Generalisation of Dynamic Predictive Modelling
 
-A production-oriented R&D framework for generalizing quality prediction models across manufacturing lines. This system provides end-to-end signal processing, regime discovery, and domain adaptation strategies to deploy predictive maintenance tools to new product categories with minimal retraining.
+A production-oriented R&D framework for generalizing quality prediction models across manufacturing lines. This system provides end-to-end signal processing with domain adaptation strategies.
 
 ---
 
@@ -10,7 +10,7 @@ A production-oriented R&D framework for generalizing quality prediction models a
 
 * **Automated Signal Processing:** Feature extraction pipeline for 17+ high-frequency sensors (pressure, flow, vibration, temperature), including FFT spectral analysis and optional smoothing (EMA / Savitzky–Golay).
 * **Dynamic Condition Monitoring:** Predicts five quality targets (Cooler, Valve, Pump, Accumulator, Stability) using a combination of classical regression and tree-based models.
-* **High-Fidelity Baselines:** Uses `scipy.optimize` curve fitting as a reference against more complex machine learning models, mirroring traditional degradation laws.
+* **High-Fidelity Baselines:** Uses curve fitting as a reference against more complex machine learning models, mirroring traditional degradation laws.
 * **Latent Space Monitoring:** Defines a “distance-from-good” metric in a low-dimensional embedding (UMAP) that quantifies how far a production cycle is from a typical healthy regime.
 * **Modular Architecture:** Clear separation between data loading, exploration, feature engineering, and modelling so components can be reused or replaced in production.
 
